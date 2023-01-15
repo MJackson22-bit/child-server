@@ -1,7 +1,7 @@
 version: '3.1'
 
 services:
-  chlid_db:
+  child_db:
     image: mysql:5.7
     volumes:
       - ./mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
@@ -9,8 +9,8 @@ services:
     ports:
       - "3312:3306"
     environment:
-      MYSQL_DATABASE: chlid_db
-      MYSQL_ROOT_USER: chlid_db
-      MYSQL_USER: chlid_db
+      MYSQL_DATABASE: child_db
+      MYSQL_ROOT_USER: child_db
+      MYSQL_USER: child_db
       MYSQL_ROOT_PASSWORD: secret
       MYSQL_PASSWORD: secret
