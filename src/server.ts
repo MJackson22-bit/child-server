@@ -1,32 +1,32 @@
-import express from 'express'
-import morgan from 'morgan'
-import cors from 'cors'
+import express from "express";
+import morgan from "morgan";
+import cors from "cors";
+import { UserRouter } from "./router/user.router";
 
 class ServerBootstrap {
-    public app: express.Application = express()
-    private port: number = 8000
+  public app: express.Application = express();
+  private port: number = 8000;
 
-    constructor() {
-        // Initial configuration
-        this.app.use(express.json())
-        this.app.use(express.urlencoded({ extended: true }))
-        this.app.use(morgan('dev'))
-        this.app.use(cors())
+  constructor() {
+    // Initial configuration
+    this.app.use(express.json());
+    this.app.use(express.urlencoded({ extended: true }));
+    this.app.use(morgan("dev"));
+    this.app.use(cors());
+    this.app.use('/api', this.routers());
 
-        this.app.get('/api', (req, res) => {
-            res.status(200).json({
-                message: "Hello, world!"
-            })
-        })
+    this.listen();
+  }
 
-        this.listen()
-    }
+  routers(): Array<express.Router> {
+    return [new UserRouter().router];
+  }
 
-    public listen() {
-        this.app.listen(this.port, () => {
-            console.log('Listening on port => ' + this.port)
-        })
-    }
+  public listen() {
+    this.app.listen(this.port, () => {
+      console.log(`Listening on port => ${this.port}`);
+    });
+  }
 }
 
-new ServerBootstrap()
+new ServerBootstrap();
