@@ -14,7 +14,6 @@ class ServerBootstrap extends ConfigServer {
     super();
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
-    this.dbConnect();
     this.app.use(morgan("dev"));
     this.app.use(cors());
     this.app.use('/api', this.routers());
@@ -24,10 +23,6 @@ class ServerBootstrap extends ConfigServer {
 
   routers(): Array<express.Router> {
     return [new UserRouter().router];
-  }
-
-  async dbConnect(): Promise<Connection> {
-    return await createConnection(this.typeORMConfig)
   }
 
   public listen() {
