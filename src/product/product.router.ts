@@ -9,8 +9,8 @@ export class ProductRouter extends BaseRouter<ProductController> {
     routes(): void {
         this.router.get('/products', (req, res) => this.controller.getProducts(req, res))
         this.router.get('/products/:id', (req, res) => this.controller.getProductById(req, res))
-        this.router.get('/createProduct', (req, res) => this.controller.createProduct(req, res))
-        this.router.get('/updateProduct/:id', (req, res) => this.controller.updateProduct(req, res))
-        this.router.get('/deleteProduct/:id', (req, res) => this.controller.deleteProduct(req, res))
+        this.router.post('/createProduct', (req, res) => this.controller.createProduct(req, res))
+        this.router.put('/updateProduct/:id', (req, res) => this.controller.updateProduct(req, res))
+        this.router.delete('/deleteProduct/:id', (req, res) => this.controller.deleteProduct(req, res))
     }
 }

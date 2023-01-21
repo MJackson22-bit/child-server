@@ -19,7 +19,7 @@ export class ProductService extends BaseService<ProductEntity> {
     }
 
     async createProduct(body: ProductEntity): Promise<ProductEntity> {
-        return (await this.execRespository).create(body)
+        return (await this.execRespository).save(body)
     }
 
     async deleteProduct(id: string): Promise<DeleteResult> {
