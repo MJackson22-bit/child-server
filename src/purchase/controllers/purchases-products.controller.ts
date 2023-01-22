@@ -1,15 +1,23 @@
 import { Request, Response } from "express";
+import { DeleteResult, UpdateResult } from "typeorm";
+import { HttpResponse } from "../../shared/response/http.response";
 import { PurchasesProductsService } from "../services/purchases-products.service";
 
 export class PurchasesProductsController {
-    constructor(private readonly purchasesProductsService: PurchasesProductsService = new PurchasesProductsService()) {}
+    constructor(
+        private readonly purchasesProductsService: PurchasesProductsService = new PurchasesProductsService(),
+        private readonly httpResponse: HttpResponse = new HttpResponse()
+    ) {}
 
     async getPurchasesProducts(req: Request, res: Response) {
         try {
             const data = await this.purchasesProductsService.findAllPurchasesProducts();
-            res.status(200).json(data);
+            if(data.length == 0) {
+                return this.httpResponse.NotFound(res, "Purchase Product Not Found")
+            }
+            return this.httpResponse.Ok(res, data)
         } catch (error) {
-            console.error(error);
+            this.httpResponse.Error(res, error)
         }
     }
 
@@ -17,38 +25,47 @@ export class PurchasesProductsController {
         const { id } = req.params
         try {
             const data = await this.purchasesProductsService.findPurchasesProductsByProductId(id)
-            res.status(200).json(data);
+            if(!data) {
+                return this.httpResponse.NotFound(res, 'Product not found')
+            }
+            return this.httpResponse.Ok(res, data)
         } catch (error) {
-            console.error(error);
+            return this.httpResponse.Error(res, error)
         }
     }
 
     async createPurchasesProducts(req: Request, res: Response) {
         try {
             const data = await this.purchasesProductsService.createPurchaseProducts(req.body)
-            res.status(200).json(data)
+            return this.httpResponse.Ok(res, data)
         } catch (error) {
-            console.error(error)
+            return this.httpResponse.Error(res, error)
         }
     }
 
     async updatePurchasesProducts(req: Request, res: Response) {
         const { id } = req.params
         try {
-            const data = await this.purchasesProductsService.updatePurchasesProducts(id, req.body)
-            res.status(200).json(data)
+            const data: UpdateResult = await this.purchasesProductsService.updatePurchasesProducts(id, req.body)
+            if(!data.affected){
+                return this.httpResponse.NotFound(res, "Error updating purchase product")
+            }
+            return this.httpResponse.Ok(res, data)
         } catch (error) {
-            console.error(error)            
+            return this.httpResponse.Error(res, error)
         }
     }
 
     async deletePurchasesProducts(req: Request, res: Response) {
         const { id } = req.params
         try {
-            const data = await this.purchasesProductsService.deletePurchasesProducts(id)
-            res.status(200).json(data)
+            const data: DeleteResult = await this.purchasesProductsService.deletePurchasesProducts(id)
+            if(!data.affected){
+                return this.httpResponse.NotFound(res, "Error deleting purchase product")
+            }
+            return this.httpResponse.Ok(res, data)
         } catch (error) {
-            console.error(error)
+            return this.httpResponse.Error(res, error)
         }
     }
 }
