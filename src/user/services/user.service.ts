@@ -1,5 +1,6 @@
 import { DeleteResult, UpdateResult } from "typeorm";
 import { BaseService } from "../../config/base.service";
+import * as bcrypt from "bcrypt";
 import { UserDTO } from "../dto/user.dto";
 import { UserEntity } from "../entities/user.entity";
 
@@ -23,7 +24,26 @@ export class UserService extends BaseService<UserEntity> {
         .where({ id }).getOne();
     }
 
+    async findUserByEmail(email: string): Promise<UserEntity | null> {
+        return (await this.execRespository)
+        .createQueryBuilder("user")
+        .addSelect("user.password")
+        .where({ email })
+        .getOne();
+    }
+
+    async findUserByUsername(username: string): Promise<UserEntity | null> { 
+        return (await this.execRespository)
+        .createQueryBuilder("user")
+        .addSelect("user.username")
+        .where({ username })
+        .getOne();
+    }   
+
     async createUser(body: UserDTO): Promise<UserEntity>{
+        const newUser = (await this.execRespository).create(body);
+        const hash = await bcrypt.hash(newUser.password, 10);
+        newUser.password = hash;
         return (await this.execRespository).save(body)
     }
 
