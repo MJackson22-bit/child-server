@@ -9,12 +9,13 @@ export class ProductMiddleware {
   ) {}
 
   productValidator(req: Request, res: Response, next: NextFunction) {
-    const { productName, description, price } = req.body;
+    const { productName, description, price, category } = req.body;
 
     const valid = new ProductDTO();
     valid.productName = productName;
     valid.description = description;
     valid.price = price;
+    valid.category = category;
 
     validate(valid).then((err) => {
       if (err.length > 0) {
