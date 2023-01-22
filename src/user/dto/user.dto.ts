@@ -24,3 +24,9 @@ export class UserDTO extends BaseDTO {
     province!: string;
 
 }
+
+export enum RoleType {
+    USER = "USER",
+    CUSTOMER = "CUSTOMER",
+    ADMIN = "ADMIN"
+}
