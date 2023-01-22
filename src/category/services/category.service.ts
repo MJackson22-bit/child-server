@@ -12,9 +12,7 @@ export class CategoryService extends BaseService<CategoryEntity> {
     }
 
     async findByCategoryId(id: string): Promise<CategoryEntity | null>{
-        return (await this.execRespository).findOne({
-            where: { id: id }
-        })
+        return (await this.execRespository).findOneBy({ id })
     }
 
     async createCategory(body: CategoryEntity): Promise<CategoryEntity> {

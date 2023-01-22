@@ -13,9 +13,7 @@ export class UserService extends BaseService<UserEntity> {
     }
 
     async findUserById(id: string): Promise<UserEntity | null>{
-        return (await this.execRespository).findOne({ 
-            where: { id: id }
-         })
+        return (await this.execRespository).findOneBy({ id })
     }
 
     async createUser(body: UserDTO): Promise<UserEntity>{
