@@ -7,10 +7,10 @@ export class PurchasesProductsRouter extends BaseRouter<PurchasesProductsControl
     }
 
     routes(): void {
-        this.router.get('user/purchasesProducts', (req, res) => this.controller.getPurchasesProducts(req, res));
-        this.router.get('user/purchasesProducts/:id', (req, res) => this.controller.getPurchasesProductsById(req, res));
-        this.router.post('user/createPurchasesProducts', (req, res) => this.controller.createPurchasesProducts(req, res));
-        this.router.put('user/updatePurchasesProducts', (req, res) => this.controller.updatePurchasesProducts(req, res));
-        this.router.delete('user/deletePurchasesProducts', (req, res) => this.controller.deletePurchasesProducts(req, res));
+        this.router.get('/user/purchasesProducts', (req, res) => this.controller.getPurchasesProducts(req, res));
+        this.router.get('/user/purchasesProducts/:id', (req, res) => this.controller.getPurchasesProductsById(req, res));
+        this.router.post('/user/createPurchasesProducts', (req, res) => this.controller.createPurchasesProducts(req, res));
+        this.router.put('/user/updatePurchasesProducts', (req, res) => this.controller.updatePurchasesProducts(req, res));
+        this.router.delete('/user/deletePurchasesProducts', (req, res) => this.controller.deletePurchasesProducts(req, res));
     }
 }
