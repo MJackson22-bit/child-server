@@ -16,16 +16,24 @@ export class AuthService extends ConfigServer {
     public async validateUser(username: string, password: string): Promise<UserEntity | null> {
         const userByEmail = await this.userService.findUserByEmail(username);
         const userByUsername = await this.userService.findUserByUsername(username);
-
+    
         if(userByUsername){
+            
             const isMatch = await bcrypt.compare(password, userByUsername.password)
-            isMatch && userByUsername
+            console.log(password)
+            if(!isMatch){
+                return userByUsername;
+            }
         }
 
         if(userByEmail){
             const isMatch = await bcrypt.compare(password, userByEmail.password)
-            isMatch && userByEmail
+            if(!isMatch){
+                return userByEmail;
+            }
         }
+
+        
         
         return null;
     }
@@ -49,7 +57,7 @@ export class AuthService extends ConfigServer {
         
         return {
             accessToken: this.sing(payload, this.getEnvironment("JWT_SECRET")),
-            user
-        }
+            user,
+        };
     }
 }

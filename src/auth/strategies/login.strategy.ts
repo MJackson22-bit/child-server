@@ -12,6 +12,7 @@ export class LoginStrategy {
         done: any
     ): Promise<UserEntity> {
         const user = await authService.validateUser(username, password);
+        
         if(!user){
             return done(null, false, { message: "Invalid username or password." });
         }

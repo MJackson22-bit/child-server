@@ -17,7 +17,7 @@ export class UserEntity extends BaseEntity {
     @Column()
     email!: string;
 
-    @Column({ select: false })
+    @Column()
     password!: string;
 
     @Column()
