@@ -9,7 +9,7 @@ export class CategoryController {
         private readonly httpResponse: HttpResponse = new HttpResponse()
     ) {}
 
-    async getCategories(req: Request, res: Response) {
+    async getCategories(req: Request, res: Response): Promise<Response> {
         try {
             const data = await this.categoryService.findAllCategories();
             if(data.length == 0) {
@@ -21,7 +21,7 @@ export class CategoryController {
         }
     }
 
-    async getCategoryById(req: Request, res: Response) {
+    async getCategoryById(req: Request, res: Response): Promise<Response> {
         const { id } = req.params
         try {
             const data = await this.categoryService.findByCategoryId(id)

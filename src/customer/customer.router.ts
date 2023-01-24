@@ -8,6 +8,7 @@ export class CustomerRouter extends BaseRouter<
 > {
   constructor() {
     super(CustomerController, CustomerMiddleware);
+    
   }
 
   routes(): void {
