@@ -21,7 +21,7 @@ export class CategoryController {
         }
     }
 
-    async getCategoryById(req: Request, res: Response) {
+    async getCategoryById(req: Request, res: Response): Promise<Response> {
         const { id } = req.params
         try {
             const data = await this.categoryService.findByCategoryId(id)
