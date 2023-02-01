@@ -15,9 +15,6 @@ export class ProductEntity extends BaseEntity {
     @Column()
     price!: number;
 
-    @OneToOne(() => UserEntity, (user) => user.customer)
-    @JoinColumn({ name: "user_id" })
-    user!: UserEntity;
 
     @ManyToOne(() => CategoryEntity, (category) => category.products)
     @JoinColumn({ name: "category_id" })

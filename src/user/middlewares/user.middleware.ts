@@ -3,24 +3,19 @@ import { NextFunction, Request, Response } from "express";
 import { SharedMiddleware } from "../../shared/middlewares/shared.middleware";
 import { UserDTO } from "../dto/user.dto";
 
-export class UserMiddleware  extends SharedMiddleware{
+export class UserMiddleware extends SharedMiddleware {
   constructor() {
-    super()
+    super();
   }
 
   userValidator(req: Request, res: Response, next: NextFunction) {
-    const { name, lastname, username, email, password, city, province, role } =
+    const { username, email, password } =
       req.body;
 
     const valid = new UserDTO();
-    valid.name = name;
-    valid.lastname = lastname;
     valid.username = username;
     valid.email = email;
     valid.password = password;
-    valid.province = province;
-    valid.role = role;
-    valid.city = city;
 
     validate(valid).then((err) => {
       if (err.length > 0) {

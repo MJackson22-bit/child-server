@@ -1,7 +1,7 @@
 import { DeleteResult, UpdateResult } from "typeorm";
 import { BaseService } from "../../config/base.service";
 import * as bcrypt from "bcrypt";
-import { RoleType, UserDTO } from "../dto/user.dto";
+import { UserDTO } from "../dto/user.dto";
 import { UserEntity } from "../entities/user.entity";
 
 export class UserService extends BaseService<UserEntity> {
@@ -17,26 +17,11 @@ export class UserService extends BaseService<UserEntity> {
         return (await this.execRespository).findOneBy({ id })
     }
 
-    async findUserWithRelation(id: string): Promise<UserEntity | null>{
-        return (await this.execRespository)
-        .createQueryBuilder('user')
-        .leftJoinAndSelect('user.customer','customer')
-        .where({ id }).getOne();
-    }
-
     async findUserByEmail(email: string): Promise<UserEntity | null> {
         return (await this.execRespository)
         .createQueryBuilder("user")
         .addSelect("user.password")
         .where({ email })
-        .getOne();
-    }
-
-    async findUserWithRole(id: string, role: RoleType): Promise<UserEntity | null> {
-        return (await this.execRespository)
-        .createQueryBuilder("user")
-        .where({ id })
-        .andWhere({ role })
         .getOne();
     }
 
