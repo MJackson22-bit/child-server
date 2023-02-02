@@ -45,7 +45,8 @@ export class AuthService extends ConfigServer {
     public async generateJWT(
         user: UserEntity
     ): Promise<{ accessToken: string; user: UserEntity }>{
-        const userConsult = await this.userService.findUserByEmail(user.id)
+        const userConsult = await this.userService.findUserByEmail(user.email)
+        console.log(user)
         const payload: PayloadToken = {
             sub: userConsult!.id
         }

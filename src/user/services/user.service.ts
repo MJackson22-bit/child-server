@@ -20,7 +20,7 @@ export class UserService extends BaseService<UserEntity> {
     async findUserByEmail(email: string): Promise<UserEntity | null> {
         return (await this.execRespository)
         .createQueryBuilder("user")
-        .addSelect("user.password")
+        .addSelect("user.email")
         .where({ email })
         .getOne();
     }
