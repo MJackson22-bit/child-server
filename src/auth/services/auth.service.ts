@@ -16,17 +16,17 @@ export class AuthService extends ConfigServer {
     public async validateUser(username: string, password: string): Promise<UserEntity | null> {
         const userByEmail = await this.userService.findUserByEmail(username);
         const userByUsername = await this.userService.findUserByUsername(username);
+        
     
         if(userByUsername){
-            
             const isMatch = await bcrypt.compare(password, userByUsername.password)
-            console.log(password)
             if(!isMatch){
                 return userByUsername;
             }
         }
 
         if(userByEmail){
+        
             const isMatch = await bcrypt.compare(password, userByEmail.password)
             if(!isMatch){
                 return userByEmail;
@@ -46,13 +46,8 @@ export class AuthService extends ConfigServer {
         user: UserEntity
     ): Promise<{ accessToken: string; user: UserEntity }>{
         const userConsult = await this.userService.findUserByEmail(user.email)
-        console.log(user)
         const payload: PayloadToken = {
             sub: userConsult!.id
-        }
-
-        if(userConsult){
-            user.password = "Not permission";
         }
         
         return {
