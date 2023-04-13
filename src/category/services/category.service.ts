@@ -8,22 +8,22 @@ export class CategoryService extends BaseService<CategoryEntity> {
     }
 
     async findAllCategories(): Promise<CategoryEntity[]>{
-        return (await this.execRespository).find()
+        return (await this.execRepository).find()
     }
 
     async findByCategoryId(id: string): Promise<CategoryEntity | null>{
-        return (await this.execRespository).findOneBy({ id })
+        return (await this.execRepository).findOneBy({ id })
     }
 
     async createCategory(body: CategoryEntity): Promise<CategoryEntity> {
-        return (await this.execRespository).save(body)
+        return (await this.execRepository).save(body)
     }
 
     async deleteCategory(id: string): Promise<DeleteResult> {
-        return (await this.execRespository).delete({ id })
+        return (await this.execRepository).delete({ id })
     }
 
     async updateCategory(id: string, body: CategoryEntity): Promise<UpdateResult> {
-        return (await this.execRespository).update(id, body)
+        return (await this.execRepository).update(id, body)
     }
 }

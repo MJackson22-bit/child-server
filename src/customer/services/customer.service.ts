@@ -9,22 +9,22 @@ export class CustomerService extends BaseService<CustomerEntity> {
     }
 
     async findAllCustomers(): Promise<CustomerEntity[]>{
-        return (await this.execRespository).find()
+        return (await this.execRepository).find()
     }
 
     async findCustomerById(id: string): Promise<CustomerEntity | null>{
-        return (await this.execRespository).findOneBy({ id })
+        return (await this.execRepository).findOneBy({ id })
     }
 
     async createCustomer(body: CustomerDTO): Promise<CustomerEntity> {
-        return (await this.execRespository).save(body)
+        return (await this.execRepository).save(body)
     }
 
     async deleteCustomer(id: string): Promise<DeleteResult> {
-        return (await this.execRespository).delete({ id })
+        return (await this.execRepository).delete({ id })
     }
 
     async updateCustomer(id: string, infoUpdate: CustomerDTO): Promise<UpdateResult> {
-        return (await this.execRespository).update(id, infoUpdate)
+        return (await this.execRepository).update(id, infoUpdate)
     }
 }

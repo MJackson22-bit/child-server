@@ -12,29 +12,29 @@ export class PurchasesProductsService extends BaseService<PurchasesProductsEntit
   }
 
   async findAllPurchasesProducts(): Promise<PurchasesProductsEntity[]> {
-    return (await this.execRespository).find();
+    return (await this.execRepository).find();
   }
 
   async findPurchasesProductsByProductId(
     id: string
   ): Promise<PurchasesProductsEntity | null> {
-    return (await this.execRespository).findOneBy({ id });
+    return (await this.execRepository).findOneBy({ id });
   }
 
   async createPurchaseProducts(body: PurchasesProductsDTO): Promise<PurchasesProductsEntity> {
-    const newPurchaseProduct = (await this.execRespository).create(body)
+    const newPurchaseProduct = (await this.execRepository).create(body)
     const product = await this.productService.findProductById(newPurchaseProduct.product.id);
     newPurchaseProduct.totalPrice = product!.price * newPurchaseProduct.quantityProduct
-    return (await this.execRespository).save(newPurchaseProduct)
+    return (await this.execRepository).save(newPurchaseProduct)
   }
 
 
 
   async deletePurchasesProducts(id: string): Promise<DeleteResult> {
-    return (await this.execRespository).delete({ id })
+    return (await this.execRepository).delete({ id })
   }
 
   async updatePurchasesProducts(id: string, infoUpdate: PurchasesProductsDTO): Promise<UpdateResult> {
-    return (await this.execRespository).update(id, infoUpdate)
+    return (await this.execRepository).update(id, infoUpdate)
   }
 }

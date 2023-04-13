@@ -10,15 +10,15 @@ export class UserService extends BaseService<UserEntity> {
     }
 
     async findAllUsers(): Promise<UserEntity[]>{
-        return (await this.execRespository).find()
+        return (await this.execRepository).find()
     }
 
     async findUserById(id: string): Promise<UserEntity | null>{
-        return (await this.execRespository).findOneBy({ id })
+        return (await this.execRepository).findOneBy({ id })
     }
 
     async findUserByEmail(email: string): Promise<UserEntity | null> {
-        return (await this.execRespository)
+        return (await this.execRepository)
         .createQueryBuilder("user")
         .addSelect("user.email")
         .where({ email })
@@ -26,7 +26,7 @@ export class UserService extends BaseService<UserEntity> {
     }
 
     async findUserByUsername(username: string): Promise<UserEntity | null> { 
-        return (await this.execRespository)
+        return (await this.execRepository)
         .createQueryBuilder("user")
         .addSelect("user.username")
         .where({ username })
@@ -34,17 +34,17 @@ export class UserService extends BaseService<UserEntity> {
     }   
 
     async createUser(body: UserDTO): Promise<UserEntity>{
-        const newUser = (await this.execRespository).create(body);
+        const newUser = (await this.execRepository).create(body);
         const hash = await bcrypt.hash(newUser.password, 10);
         newUser.password = hash;
-        return (await this.execRespository).save(body)
+        return (await this.execRepository).save(body)
     }
 
     async deleteUser(id: string): Promise<DeleteResult> {
-        return (await this.execRespository).delete({ id })
+        return (await this.execRepository).delete({ id })
     }
     
     async updateUser(id: string, infoUpdate: UserDTO): Promise<UpdateResult>{
-        return (await this.execRespository).update(id, infoUpdate)
+        return (await this.execRepository).update(id, infoUpdate)
     }
 }
