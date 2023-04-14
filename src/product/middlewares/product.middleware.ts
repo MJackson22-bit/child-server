@@ -5,11 +5,12 @@ import { ProductDTO } from "../dto/product.dto";
 
 export class ProductMiddleware {
   constructor(
-    private readonly httpResponse: HttpResponse = new HttpResponse()
-  ) {}
+      private readonly httpResponse: HttpResponse = new HttpResponse()
+  ) {
+  }
 
   productValidator(req: Request, res: Response, next: NextFunction) {
-    const { productName, description, price, category } = req.body;
+    const {productName, description, price, category} = req.body;
 
     const valid = new ProductDTO();
     valid.productName = productName;

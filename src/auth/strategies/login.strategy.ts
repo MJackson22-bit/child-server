@@ -13,16 +13,16 @@ export class LoginStrategy {
     ): Promise<UserEntity> {
         const user = await authService.validateUser(username, password);
         const isValid = user?.email == username && user?.password == password
-        
-        if(!isValid){
-            return done(null, false, { message: "Invalid username or password." });
+
+        if (!isValid) {
+            return done(null, false, {message: "Invalid username or password."});
         }
         return done(null, user)
     }
 
     get use() {
         return PassportUse<LocalStrategy, Object, VerifyFunction>(
-            "login", LocalStrategy, { 
+            "login", LocalStrategy, {
                 usernameField: "username",
                 passwordField: "password"
             }, this.validate

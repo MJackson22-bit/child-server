@@ -9,8 +9,8 @@ export class UserMiddleware extends SharedMiddleware {
   }
 
   userValidator(req: Request, res: Response, next: NextFunction) {
-    const { username, email, password } =
-      req.body;
+    const {username, email, password} =
+        req.body;
 
     const valid = new UserDTO();
     valid.username = username;

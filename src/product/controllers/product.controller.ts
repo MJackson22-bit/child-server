@@ -7,12 +7,13 @@ export class ProductController {
     constructor(
         private readonly productService: ProductService = new ProductService(),
         private readonly httpResponse: HttpResponse = new HttpResponse()
-    ){}
+    ) {
+    }
 
-    async getProducts(req: Request, res: Response){
+    async getProducts(req: Request, res: Response) {
         try {
             const data = await this.productService.findAllProducts()
-            if(data.length == 0){
+            if (data.length == 0) {
                 return this.httpResponse.NotFound(res, "Product not found")
             }
             return this.httpResponse.Ok(res, data)
@@ -21,11 +22,11 @@ export class ProductController {
         }
     }
 
-    async getProductById(req: Request, res: Response){
-        const { id } = req.params
+    async getProductById(req: Request, res: Response) {
+        const {id} = req.params
         try {
             const data = await this.productService.findProductById(id)
-            if(!data) {
+            if (!data) {
                 return this.httpResponse.NotFound(res, 'Product not found')
             }
             return this.httpResponse.Ok(res, data)
@@ -44,10 +45,10 @@ export class ProductController {
     }
 
     async updateProduct(req: Request, res: Response) {
-        const { id } = req.params
+        const {id} = req.params
         try {
             const data: UpdateResult = await this.productService.updateProduct(id, req.body)
-            if(!data.affected){
+            if (!data.affected) {
                 return this.httpResponse.NotFound(res, 'Error updating product')
             }
             return this.httpResponse.Ok(res, data)
@@ -57,10 +58,10 @@ export class ProductController {
     }
 
     async deleteProduct(req: Request, res: Response) {
-        const { id } = req.params
+        const {id} = req.params
         try {
             const data: DeleteResult = await this.productService.deleteProduct(id)
-            if(data.affected){
+            if (data.affected) {
                 return this.httpResponse.NotFound(res, "Error deleting product")
             }
             return this.httpResponse.Ok(res, data)

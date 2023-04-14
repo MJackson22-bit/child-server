@@ -2,7 +2,6 @@ import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne } from "type
 import { CategoryEntity } from "../../category/entities/category.entity";
 import { BaseEntity } from "../../config/base.entity";
 import { PurchasesProductsEntity } from "../../purchase/entities/purchases-products.entity";
-import { UserEntity } from "../../user/entities/user.entity";
 
 @Entity({ name: "product" })
 export class ProductEntity extends BaseEntity {
@@ -22,5 +21,4 @@ export class ProductEntity extends BaseEntity {
 
     @OneToMany(() => PurchasesProductsEntity, (purchaseProducts) => purchaseProducts.product)
     purchaseProducts!: PurchasesProductsEntity[];
-    
 }

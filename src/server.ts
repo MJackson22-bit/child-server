@@ -48,11 +48,11 @@ class ServerBootstrap extends ConfigServer {
   }
 
   async dbConnect(): Promise<DataSource | void> {
-      return this.initConnect.then(() => {
-        console.log("Connect Success")
-      }).catch((err) => {
-        console.error(err);
-      })
+    return this.initConnect.then(() => {
+      console.log("Connect Success")
+    }).catch((err) => {
+      console.error(err);
+    })
   }
 
   public listen() {

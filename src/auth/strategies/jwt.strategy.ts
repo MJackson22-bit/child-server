@@ -4,27 +4,26 @@ import { AuthService } from "../services/auth.service";
 import { PassportUse } from "../utils/passport.user";
 
 export class JwtStrategy extends AuthService {
-  constructor() {
-    super();
-  }
+    constructor() {
+        super();
+    }
 
-  async validate(payload: PayloadToken, done: any) {
-    return done(null, payload);
-  }
+    async validate(payload: PayloadToken, done: any) {
+        return done(null, payload);
+    }
 
-  get use() {
-    return PassportUse<
-      Strategy,
-      StrategyOptions,
-      (payload: PayloadToken, done: any) => Promise<PayloadToken>
-    >(
-      "jwt",
-      Strategy,
-      {
-        jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-        secretOrKey: this.getEnvironment("JWT_SECRET"),
-      },
-      this.validate
-    );
-  }
+    get use() {
+        return PassportUse<
+            Strategy,
+            StrategyOptions,
+            (payload: PayloadToken, done: any) => Promise<PayloadToken>>(
+            "jwt",
+            Strategy,
+            {
+                jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+                secretOrKey: this.getEnvironment("JWT_SECRET"),
+            },
+            this.validate
+        );
+    }
 }

@@ -7,7 +7,8 @@ export class PurchaseController {
     constructor(
         private readonly puchaseService: PurchaseService = new PurchaseService(),
         private readonly httpResponse: HttpResponse = new HttpResponse()
-    ) { }
+    ) {
+    }
 
     async getPurchases(req: Request, res: Response) {
         try {
@@ -22,10 +23,10 @@ export class PurchaseController {
     }
 
     async getPurchaseById(req: Request, res: Response) {
-        const { id } = req.params;
+        const {id} = req.params;
         try {
             const data = await this.puchaseService.findPurchaseById(id);
-            if(!data) {
+            if (!data) {
                 return this.httpResponse.NotFound(res, 'Purchase not found');
             }
             return this.httpResponse.Ok(res, data);
@@ -35,19 +36,19 @@ export class PurchaseController {
     }
 
     async createPurchase(req: Request, res: Response) {
-        try{
+        try {
             const data = await this.puchaseService.createPurchase(req.body)
             this.httpResponse.Ok(res, data);
-        }catch (error) {
+        } catch (error) {
             this.httpResponse.Error(res, error);
         }
     }
 
     async updatePurchase(req: Request, res: Response) {
-        const {id } = req.params
+        const {id} = req.params
         try {
             const data: UpdateResult = await this.puchaseService.updatePurchase(id, req.body)
-            if(!data.affected){
+            if (!data.affected) {
                 return this.httpResponse.NotFound(res, "Error updating purchase")
             }
             return this.httpResponse.Ok(res, data)
@@ -57,10 +58,10 @@ export class PurchaseController {
     }
 
     async deletePurchase(req: Request, res: Response) {
-        const { id } = req.params
+        const {id} = req.params
         try {
             const data: DeleteResult = await this.puchaseService.deletePurchase(id)
-            if(!data.affected){
+            if (!data.affected) {
                 return this.httpResponse.NotFound(res, "Error deleting purchase")
             }
             return this.httpResponse.Ok(res, data)

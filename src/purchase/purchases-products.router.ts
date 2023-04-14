@@ -20,7 +20,7 @@ export class PurchasesProductsRouter extends BaseRouter<
     this.router.post(
       "/user/createPurchasesProducts",
       (req, res, next) =>
-        this.middelware.purchaseProductValidator(req, res, next),
+        this.middleware.purchaseProductValidator(req, res, next),
       (req, res) => this.controller.createPurchasesProducts(req, res)
     );
     this.router.put("/user/updatePurchasesProducts", (req, res) =>

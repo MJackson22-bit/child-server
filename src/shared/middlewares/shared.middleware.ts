@@ -6,17 +6,14 @@ import { HttpResponse } from "../response/http.response";
 export class SharedMiddleware {
     constructor(
         public httpResponse: HttpResponse = new HttpResponse()
-    ){
-
+    ) {
     }
 
-    passAuth(type: string){
-        return passport.authenticate(type, { session: false });
+    passAuth(type: string) {
+        return passport.authenticate(type, {session: false});
     }
 
-    checkAdminRole(req: Request, res: Response, next: NextFunction){
-        const user = req.user as UserEntity;
-    
+    checkAdminRole(req: Request, res: Response, next: NextFunction) {
         return next();
     }
 }
